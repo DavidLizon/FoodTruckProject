@@ -9,24 +9,24 @@ public class FoodTruck {
 	private String truckName;
 	private String foodType;
 	private int truckRating;
-	private static int truckId;
-	private int idNum = 1000;
+	private int truckId;
+	private static int truckCounter = 0;
 	
 	
 	public FoodTruck() { }
 	
-	public FoodTruck(String name, String foodType, int rating, int truckId) {
-//		int truckId;
+	public FoodTruck(String name, String foodType, int rating) {
 		
 		this.truckName = name;
 		this.foodType = foodType;
 		this.truckRating = rating;
 
-//		this.truckId = getTruckId(); 
+		this.truckId = truckIdCreator();
 	}
 	
-	private static int truckIdCreator(int id) {
-		truckId = id;
+	private int truckIdCreator() {
+		truckId = truckCounter;
+		truckCounter++;
 		return truckId;
 	}
 	
@@ -55,14 +55,14 @@ public class FoodTruck {
 	}
 
 
-	public int getTruckId() {
-		return truckId;
-	}
-	
-	public void setTruckId() {
-		this.truckId = truckIdCreator(idNum);
-		idNum++;
-	}
+//	public int getTruckId() {
+//		return truckId;
+//	}
+//	
+//	public void setTruckId() {
+//		this.truckId = truckIdCreator(idNum);
+//		idNum++;
+//	}
 	
 	public String toString() {
 		return "Truck: " + truckName + ", Food: " + foodType + ", Rating: " + truckRating
