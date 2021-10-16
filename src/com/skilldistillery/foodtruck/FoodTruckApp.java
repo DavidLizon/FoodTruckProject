@@ -22,7 +22,11 @@ public class FoodTruckApp {
 		Scanner kb = new Scanner(System.in);
 		FoodTruckApp app = new FoodTruckApp();
 		final int MAX_TRUCKS = 5;
-		int numTrucksEntered = 0;
+
+		
+//		DO I NEED THIS??? WHY?
+//		int numTrucksEntered = 0;
+		
 		FoodTruck foodTruckList[];
 
 		foodTruckList = new FoodTruck[MAX_TRUCKS];
@@ -98,14 +102,13 @@ public class FoodTruckApp {
 
 	public void optionsMenu() {
 
-		System.out.println("===================================");
+		System.out.println("\n===================================");
 		System.out.println("Please choose from the following...");
 		System.out.println("1: A list of all food trucks");
 		System.out.println("2: An average rating of food trucks");
 		System.out.println("3: Display the highest-rated food truck");
 		System.out.println("4: Quit program");
 		System.out.println("===================================");
-
 	}
 
 	public void repeatOptions(FoodTruckApp app, Scanner kb, FoodTruck[] foodTruckList) {
@@ -120,6 +123,8 @@ public class FoodTruckApp {
 
 			switch (userChoice) {
 			case 1:
+				System.out.println();
+
 				// Lists trucks in array.
 				for (int i = 0; i < foodTruckList.length; i++) {
 					if (foodTruckList[i] != null) {
@@ -130,10 +135,11 @@ public class FoodTruckApp {
 			case 2:
 				// Calculate average rating of trucks in array
 				avgRating = calcAvgOfRatings(foodTruckList);
-				System.out.println("The avg rating of all the food trucks was: " + avgRating);
+				System.out.println("\nThe avg rating of all the food trucks was: " + avgRating);
 				break;
 			case 3:
 				// Displays highest rated truck.
+				findHighestRated(foodTruckList);
 				break;
 			case 4:
 				app.exitMsg();
@@ -158,8 +164,21 @@ public class FoodTruckApp {
 			}
 			ratingAvg = (ratingsTotal / (double) totalTrucks);
 		}
-
 		return ratingAvg;
+	}
+
+	public void findHighestRated(FoodTruck[] foodTruckList) {
+		String highestRated = "";
+		int highestRating = 0;
+
+		// Checks if array spot is NOT null AND if the truck rating is lower than the current truck
+		for (int i = 0; i < foodTruckList.length; i++)
+			if ((foodTruckList[i] != null) && highestRating < foodTruckList[i].getTruckRating()) {
+				highestRated = foodTruckList[i].getName();
+				highestRating = foodTruckList[i].getTruckRating();
+			}
+
+		System.out.println("The highest rated food truck was: " + highestRated + " with a rating of " + highestRating);
 	}
 
 	public void exitMsg() {
