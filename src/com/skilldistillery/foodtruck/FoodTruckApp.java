@@ -35,9 +35,6 @@ public class FoodTruckApp {
 //		User Story #4
 //		After choosing a menu item, the user sees the menu again and can choose another item 
 //		until the choose to quit.
-
-
-		
 		app.repeatOptions(app, kb, foodTruckList);
 
 	}
@@ -86,17 +83,10 @@ public class FoodTruckApp {
 
 			// sets array at i = to truck info
 			System.out.println("Food Truck set at: " + i);
+
 			foodTruckList[i] = truck;
 		}
 
-//		// DELETE
-//		System.out.println("Hardcode array");
-//		System.out.println("From array " + foodTruckList[0]);
-//		System.out.println("From array " + foodTruckList[1]);
-//		System.out.println("From array " + foodTruckList[2]);
-//		System.out.println("From array " + foodTruckList[3]);
-//		System.out.println("From array " + foodTruckList[4]);
-//		System.out.println("Program has ended");
 	}
 
 //		User Story #3
@@ -121,43 +111,55 @@ public class FoodTruckApp {
 	public void repeatOptions(FoodTruckApp app, Scanner kb, FoodTruck[] foodTruckList) {
 		int userChoice;
 		boolean keepGoing = true;
-		
+		double avgRating;
+
 		do {
-		// Display options user can choose
-		app.optionsMenu();
-		userChoice = kb.nextInt();
+			// Display options user can choose
+			app.optionsMenu();
+			userChoice = kb.nextInt();
 
-		switch (userChoice) {
-		case 1:
-
-			// DELETE test prints out truck array iteration
-			for (int i = 0; i < foodTruckList.length; i++) {
-				if (foodTruckList[i] != null) {
-					System.out.println(foodTruckList[i]);
+			switch (userChoice) {
+			case 1:
+				// Lists trucks in array.
+				for (int i = 0; i < foodTruckList.length; i++) {
+					if (foodTruckList[i] != null) {
+						System.out.println(foodTruckList[i]);
+					}
 				}
+				break;
+			case 2:
+				// Calculate average rating of trucks in array
+				avgRating = calcAvgOfRatings(foodTruckList);
+				System.out.println("The avg rating of all the food trucks was: " + avgRating);
+				break;
+			case 3:
+				// Displays highest rated truck.
+				break;
+			case 4:
+				app.exitMsg();
+				keepGoing = false;
+				break;
+			default:
+				System.out.println("That wasn't an option. Please choose again.");
 			}
-			break;
-		case 2:
-
-			break;
-		case 3:
-			calcAvgOfRatings(foodTruckList);
-			break;
-		case 4:
-			app.exitMsg();
-			keepGoing = false;
-			break;
-		default:
-			System.out.println("That wasn't an option. Please choose again.");
-		}
-		}while (keepGoing);
+		} while (keepGoing);
 
 	}
-	
-	public void calcAvgOfRatings(FoodTruck[] foodTruckList) {
-		
-		
-		
+
+	public double calcAvgOfRatings(FoodTruck[] foodTruckList) {
+		double ratingAvg = 0;
+		int ratingsTotal = 0;
+		int totalTrucks = 0;
+
+		for (int i = 0; i < foodTruckList.length; i++) {
+			if (foodTruckList[i] != null) {
+				totalTrucks += 1;
+				ratingsTotal += foodTruckList[i].getTruckRating();
+			}
+			ratingAvg = (ratingsTotal / (double) totalTrucks);
+		}
+
+		return ratingAvg;
 	}
 
 	public void exitMsg() {

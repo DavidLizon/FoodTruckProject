@@ -20,14 +20,23 @@ public class FoodTruck {
 		this.truckName = name;
 		this.foodType = foodType;
 		this.truckRating = rating;
-
 		this.truckId = truckIdCreator();
 	}
 	
 	private int truckIdCreator() {
-		truckId = truckCounter;
+		
+//		ATTEMPT TO FIX ON MY OWN
+		int truckNum;
+		truckNum = truckCounter;
 		truckCounter++;
-		return truckId;
+		System.out.println("TruckCounter: " + truckCounter);
+		return truckNum;
+		
+		
+//		Came up with TA
+//		truckId = truckCounter;
+//		truckCounter++;
+//		return truckId;
 	}
 	
 	public String getName() {
