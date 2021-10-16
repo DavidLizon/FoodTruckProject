@@ -45,8 +45,8 @@ public class FoodTruckApp {
 		System.out.println("To stop adding trucks put \"exit\" as the truck name.");
 	}
 
-		// Prompt user for name, food type, and rating for up to 5 food trucks
-		// for each input create FoodTruck object
+	// Prompt user for name, food type, and rating for up to 5 food trucks
+	// for each input create FoodTruck object
 	public void inputFoodTrucks(Scanner kb, FoodTruck[] foodTruckList) {
 		String name;
 		String foodType;
@@ -164,7 +164,8 @@ public class FoodTruckApp {
 				highestRating = foodTruckList[i].getTruckRating();
 			}
 
-		System.out.println("\nThe highest rated food truck was: " + highestRated + " with a rating of " + highestRating + ".");
+		System.out.println(
+				"\nThe highest rated food truck was: " + highestRated + " with a rating of " + highestRating + ".");
 	}
 
 	public void exitMsg() {
