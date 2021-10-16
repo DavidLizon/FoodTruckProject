@@ -15,17 +15,18 @@ public class FoodTruck {
 	
 	public FoodTruck() { }
 	
-	public FoodTruck(String name, String foodType, int rating) {
+	public FoodTruck(String name, String foodType, int rating, int truckId) {
+//		int truckId;
+		
 		this.truckName = name;
 		this.foodType = foodType;
 		this.truckRating = rating;
 
-//		truckIdCreator(idNum);
+//		this.truckId = getTruckId(); 
 	}
 	
 	private static int truckIdCreator(int id) {
 		truckId = id;
-//		idNum++; 
 		return truckId;
 	}
 	
@@ -54,12 +55,22 @@ public class FoodTruck {
 	}
 
 
+	public int getTruckId() {
+		return truckId;
+	}
+	
+	public void setTruckId() {
+		this.truckId = truckIdCreator(idNum);
+		idNum++;
+	}
 	
 	public String toString() {
 		return "Truck: " + truckName + ", Food: " + foodType + ", Rating: " + truckRating
-				+ ", idNum=" + idNum + "]";
+				+ ", Truck ID: " + truckId + "]";
 	}
 	
+	
+//	MAYBE DONT NEED
 	public void displayFoodTruck() {
 		String truckData = toString();
 		System.out.println(truckData);

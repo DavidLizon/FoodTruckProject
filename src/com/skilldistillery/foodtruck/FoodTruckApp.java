@@ -29,11 +29,8 @@ public class FoodTruckApp {
 
 		app.introMsg();
 
-//		prompt user for name, food type, and rating for up to 5 food trucks
-//		for each input create FoodTruck object
+		// promt for food truck info
 		app.inputFoodTrucks(kb, foodTruckList);
-
-//		System.out.println(foodTruckList[0].toString());
 
 	}
 
@@ -41,21 +38,26 @@ public class FoodTruckApp {
 		System.out.println("Thanks for using the Local Food Truck Rating App!");
 	}
 
+//		prompt user for name, food type, and rating for up to 5 food trucks
+//		for each input create FoodTruck object
 	public void inputFoodTrucks(Scanner kb, FoodTruck[] foodTruckList) {
 		String name;
 		String foodType;
 		int rating;
-		FoodTruck truck = new FoodTruck();
+		FoodTruck truck; 
 
 		for (int i = 0; i < foodTruckList.length; i++) {
+			// prints what's needed and tells how to exit
 			enteringFoodTruckMenu();
+			
 			System.out.print("Enter a truck name: ");
 			name = kb.nextLine();
 
+			// if user enters quit break out of truck q's
 			if (name.equals("quit")) {
-				System.out.println("Name = quit");
 				break;
 			} else {
+				truck = new FoodTruck();
 				truck.setName(name);
 
 				System.out.print("Enter the food type: ");
@@ -64,14 +66,32 @@ public class FoodTruckApp {
 
 				System.out.print("Enter a rating (1, 2, 3, 4, or 5): ");
 				rating = kb.nextInt();
-				kb.nextLine();
-
+				kb.nextLine(); 		// captures return key
 				truck.setTruckRating(rating);
+				
+				// set truck ID
+				truck.setTruckId();
 			}
+			
+			// sets array at i = to truck info
+			System.out.println("Food Truck set at: " + i);
 			foodTruckList[i] = truck;
 		}
 		
+		// DELETE test prints out truck array iteration 
+		for (int i = 0; i < foodTruckList.length; i++) {
+			if(foodTruckList[i] != null)
+				System.out.println("Food Truck " + (i + 1));
+				System.out.println(foodTruckList[i]);
+			}
+			
+		// DELETE
+		System.out.println("Hardcode array");
 		System.out.println("From array " + foodTruckList[0]);
+		System.out.println("From array " + foodTruckList[1]);
+		System.out.println("From array " + foodTruckList[2]);
+		System.out.println("From array " + foodTruckList[3]);
+		System.out.println("From array " + foodTruckList[4]);
 		System.out.println("Program has ended");
 	}
 
