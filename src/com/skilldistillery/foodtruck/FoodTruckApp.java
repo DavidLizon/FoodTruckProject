@@ -6,12 +6,6 @@ public class FoodTruckApp {
 
 	public static void main(String[] args) {
 
-//		only class that has scanner and menu
-
-//		food truck ID will not be inputted by the user
-//		will be automatically created by the FoodTruck constructor
-//		from a static field that is incremented as each truck is created.
-
 //		User Story #1
 //		The user is prompted to input the name, food type, and rating for up to five
 //		food trucks. For each set of input, a FoodTruck object is created, its fields
@@ -23,82 +17,71 @@ public class FoodTruckApp {
 		FoodTruckApp app = new FoodTruckApp();
 		final int MAX_TRUCKS = 5;
 
-		
-//		DO I NEED THIS??? WHY?
-//		int numTrucksEntered = 0;
-		
 		FoodTruck foodTruckList[];
 
+		// Construct food truck array
 		foodTruckList = new FoodTruck[MAX_TRUCKS];
 
 		app.introMsg();
 
-		// prompt for food truck info
+		// Prompt user for food truck info (name, food type, rating)
 		app.inputFoodTrucks(kb, foodTruckList);
 
 //		User Story #4
-//		After choosing a menu item, the user sees the menu again and can choose another item 
-//		until the choose to quit.
+//		Shows user menu (1: see list of trucks 2: view avg rating of all trucks 3: view highest rated truck
+//		4: quit) After choosing a menu item, the user sees the menu again and can choose to another item 
+//		until they choose to quit.
 		app.repeatOptions(app, kb, foodTruckList);
 
+		kb.close();
 	}
 
 	public void introMsg() {
-		System.out.println("Thanks for using the Local Food Truck Rating App!");
+		System.out.println("Thanks for using the Rusty Food Truck Rating App!");
 	}
 
-	private void enteringFoodTruckMenu() {
+	private void foodTruckRatingDescription() {
 		System.out.println("\nPlease enter the food trucks: Name, food type, and a rating.");
 		System.out.println("To stop adding trucks put \"exit\" as the truck name.");
 	}
 
-//		prompt user for name, food type, and rating for up to 5 food trucks
-//		for each input create FoodTruck object
+		// Prompt user for name, food type, and rating for up to 5 food trucks
+		// for each input create FoodTruck object
 	public void inputFoodTrucks(Scanner kb, FoodTruck[] foodTruckList) {
 		String name;
 		String foodType;
 		int rating;
+
 		FoodTruck truck;
 
 		for (int i = 0; i < foodTruckList.length; i++) {
-			// prints what's needed and tells how to exit
-			enteringFoodTruckMenu();
+
+			// Prints what to rate and tells how to exit
+			foodTruckRatingDescription();
 
 			System.out.print("Enter a truck name: ");
 			name = kb.nextLine();
 
-			// if user enters quit break out of truck q's
+			// If user enters "quit" as name break out of rest of truck questions
 			if (name.equals("quit")) {
 				break;
 			} else {
-				truck = new FoodTruck();
-				truck.setName(name);
 
 				System.out.print("Enter the food type: ");
 				foodType = kb.nextLine();
-				truck.setFoodType(foodType);
 
-				System.out.print("Enter a rating (1, 2, 3, 4, or 5): ");
+				System.out.println("Enter a rating (1, 2, 3, 4, or 5): ");
+				System.out.print("1 being poor and 5 being excellent: ");
 				rating = kb.nextInt();
 				kb.nextLine(); // captures return key
-				truck.setTruckRating(rating);
-
+				truck = new FoodTruck(name, foodType, rating);
 			}
 
-			// sets array at i = to truck info
-			System.out.println("Food Truck set at: " + i);
-
+			// Assign truck to array location at value i
 			foodTruckList[i] = truck;
 		}
 
 	}
-
-//		User Story #3
-//		After input is complete, the user sees a menu from which they can choose to:
-//		List all existing food trucks.  DON'T SHOW NULL SPOTS
-//		See the average rating of food trucks.  
-//		Display the highest-rated food truck.
-//		Quit the program.
 
 	public void optionsMenu() {
 
@@ -109,6 +92,7 @@ public class FoodTruckApp {
 		System.out.println("3: Display the highest-rated food truck");
 		System.out.println("4: Quit program");
 		System.out.println("===================================");
+		System.out.print("Option: ");
 	}
 
 	public void repeatOptions(FoodTruckApp app, Scanner kb, FoodTruck[] foodTruckList) {
@@ -120,6 +104,7 @@ public class FoodTruckApp {
 			// Display options user can choose
 			app.optionsMenu();
 			userChoice = kb.nextInt();
+			kb.nextLine(); // captures return key
 
 			switch (userChoice) {
 			case 1:
@@ -128,7 +113,7 @@ public class FoodTruckApp {
 				// Lists trucks in array.
 				for (int i = 0; i < foodTruckList.length; i++) {
 					if (foodTruckList[i] != null) {
-						System.out.println(foodTruckList[i]);
+						foodTruckList[i].displayFoodTruck();
 					}
 				}
 				break;
@@ -154,7 +139,7 @@ public class FoodTruckApp {
 
 	public double calcAvgOfRatings(FoodTruck[] foodTruckList) {
 		double ratingAvg = 0;
-		int ratingsTotal = 0;
+		double ratingsTotal = 0;
 		int totalTrucks = 0;
 
 		for (int i = 0; i < foodTruckList.length; i++) {
@@ -162,7 +147,7 @@ public class FoodTruckApp {
 				totalTrucks += 1;
 				ratingsTotal += foodTruckList[i].getTruckRating();
 			}
-			ratingAvg = (ratingsTotal / (double) totalTrucks);
+			ratingAvg = (ratingsTotal / totalTrucks);
 		}
 		return ratingAvg;
 	}
@@ -171,18 +156,19 @@ public class FoodTruckApp {
 		String highestRated = "";
 		int highestRating = 0;
 
-		// Checks if array spot is NOT null AND if the truck rating is lower than the current truck
+		// Checks if array spot is NOT null AND if the truck rating is lower than the
+		// current truck
 		for (int i = 0; i < foodTruckList.length; i++)
 			if ((foodTruckList[i] != null) && highestRating < foodTruckList[i].getTruckRating()) {
 				highestRated = foodTruckList[i].getName();
 				highestRating = foodTruckList[i].getTruckRating();
 			}
 
-		System.out.println("The highest rated food truck was: " + highestRated + " with a rating of " + highestRating);
+		System.out.println("\nThe highest rated food truck was: " + highestRated + " with a rating of " + highestRating + ".");
 	}
 
 	public void exitMsg() {
-		System.out.println("Thank you for using the app!");
+		System.out.println("\nThank you for using the app! Next meal's on us!");
 	}
 
 }
