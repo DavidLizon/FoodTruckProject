@@ -42,7 +42,7 @@ public class FoodTruckApp {
 
 	private void foodTruckRatingDescription() {
 		System.out.println("\nPlease enter the food trucks: Name, food type, and a rating.");
-		System.out.println("To stop adding trucks put \"exit\" as the truck name.");
+		System.out.println("To stop adding trucks put \"quit\" as the truck name.");
 	}
 
 	// Prompt user for name, food type, and rating for up to 5 food trucks
@@ -113,7 +113,16 @@ public class FoodTruckApp {
 				// Lists trucks in array.
 				for (int i = 0; i < foodTruckList.length; i++) {
 					if (foodTruckList[i] != null) {
-						foodTruckList[i].displayFoodTruck();
+
+						/*
+						 * Requirements called for displaying truck info with the toString method so I
+						 * put it down below. In the FoodTruck file I created a method for printing out
+						 * the food truck info using the toString method and called it
+						 * displayFoodTruck() that way can just call that method. I would refactor the
+						 * method to not display the truck ID since that's something the user would need
+						 * to know. foodTruckList[i].displayFoodTruck();
+						 */
+						System.out.println(foodTruckList[i].toString());
 					}
 				}
 				break;
@@ -134,7 +143,6 @@ public class FoodTruckApp {
 				System.out.println("That wasn't an option. Please choose again.");
 			}
 		} while (keepGoing);
-
 	}
 
 	public double calcAvgOfRatings(FoodTruck[] foodTruckList) {
@@ -155,6 +163,7 @@ public class FoodTruckApp {
 	public void findHighestRated(FoodTruck[] foodTruckList) {
 		String highestRated = "";
 		int highestRating = 0;
+		String foodType = "";
 
 		// Checks if array spot is NOT null AND if the truck rating is lower than the
 		// current truck
@@ -162,10 +171,11 @@ public class FoodTruckApp {
 			if ((foodTruckList[i] != null) && highestRating < foodTruckList[i].getTruckRating()) {
 				highestRated = foodTruckList[i].getName();
 				highestRating = foodTruckList[i].getTruckRating();
+				foodType = foodTruckList[i].getFoodType();
 			}
 
-		System.out.println(
-				"\nThe highest rated food truck was: " + highestRated + " with a rating of " + highestRating + ".");
+		System.out.println("\nThe highest rated food truck was: " + highestRated + " cooking some delicious " + foodType
+				+ " with the top rating of " + highestRating + ".");
 	}
 
 	public void exitMsg() {

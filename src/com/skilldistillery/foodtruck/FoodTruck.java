@@ -8,7 +8,7 @@ public class FoodTruck {
 	private int truckId;
 	private static int truckCounter = 1000;
 
-	// Adds to all constructors
+	// Added to all constructors
 	{
 		this.truckId = truckCounter++;
 	}
@@ -50,7 +50,8 @@ public class FoodTruck {
 	}
 
 	public String toString() {
-		return "Truck: " + truckName + "\tFood: " + foodType + "\tRating: " + truckRating;
+		return "Truck: " + truckName + "\tFood: " + foodType + "\tRating: " + truckRating + 
+				"\ttruck ID: " + truckId;
 	}
 
 }
